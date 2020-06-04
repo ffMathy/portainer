@@ -68,10 +68,11 @@ type (
 
 	// CustomTemplate represents a custom template
 	CustomTemplate struct {
-		ID          CustomTemplateID
-		Name        string
-		ProjectPath string
-		EntryPoint  string
+		ID              CustomTemplateID
+		Name            string
+		ProjectPath     string
+		EntryPoint      string
+		CreatedByUserID UserID
 	}
 
 	// CustomTemplateID represents a custom template identifier
@@ -740,6 +741,7 @@ type (
 
 	// CustomTemplateService represents a service to manage custom templates
 	CustomTemplateService interface {
+		GetNextIdentifier() int
 		CustomTemplates() ([]CustomTemplate, error)
 		CustomTemplate(ID CustomTemplateID) (*CustomTemplate, error)
 		CreateCustomTemplate(customTemplate *CustomTemplate) error
@@ -831,6 +833,8 @@ type (
 		GetScheduleFolder(identifier string) string
 		ExtractExtensionArchive(data []byte) error
 		GetBinaryFolder() string
+		StoreCustomTemplateFileFromBytes(identifier, fileName string, data []byte) (string, error)
+		GetCustomTemplateProjectPath(identifier string) string
 	}
 
 	// GitService represents a service for managing Git
