@@ -539,6 +539,9 @@ angular.module('portainer.app', []).config([
           component: 'createCustomTemplateView',
         },
       },
+      params: {
+        stackId: '',
+      },
     };
 
     const customTemplatesEdit = {
