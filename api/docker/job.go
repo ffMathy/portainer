@@ -44,7 +44,7 @@ func (service *JobService) ExecuteScript(endpoint *portainer.Endpoint, nodeName,
 
 	_, err = cli.Ping(context.Background())
 	if err != nil {
-		return portainer.ErrUnableToPingEndpoint
+		return ErrUnableToPingEndpoint
 	}
 
 	err = pullImage(cli, image)
