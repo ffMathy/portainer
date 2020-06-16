@@ -18,7 +18,7 @@ func (handler *Handler) scheduleDelete(w http.ResponseWriter, r *http.Request) *
 		return &httperror.HandlerError{http.StatusServiceUnavailable, "Unable to retrieve settings", err}
 	}
 	if !settings.EnableHostManagementFeatures {
-		return &httperror.HandlerError{http.StatusServiceUnavailable, "Host management features are disabled", portainer.ErrHostManagementFeaturesDisabled}
+		return &httperror.HandlerError{http.StatusServiceUnavailable, "Host management features are disabled", errHostManagementFeaturesDisabled}
 	}
 
 	scheduleID, err := request.RetrieveNumericRouteVariableValue(r, "id")

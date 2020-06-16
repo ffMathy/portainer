@@ -1,6 +1,7 @@
 package schedules
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -18,6 +19,10 @@ type Handler struct {
 	JobScheduler         portainer.JobScheduler
 	ReverseTunnelService portainer.ReverseTunnelService
 }
+
+var (
+	errHostManagementFeaturesDisabled = errors.New("Host management features are disabled")
+)
 
 // NewHandler creates a handler to manage schedule operations.
 func NewHandler(bouncer *security.RequestBouncer) *Handler {
