@@ -25,13 +25,13 @@ type endpointJobFromFileContentPayload struct {
 func (payload *endpointJobFromFilePayload) Validate(r *http.Request) error {
 	file, _, err := request.RetrieveMultiPartFormFile(r, "File")
 	if err != nil {
-		return portainer.Error("Invalid Script file. Ensure that the file is uploaded correctly")
+		return errors.New("Invalid Script file. Ensure that the file is uploaded correctly")
 	}
 	payload.File = file
 
 	image, err := request.RetrieveMultiPartFormValue(r, "Image", false)
 	if err != nil {
-		return portainer.Error("Invalid image name")
+		return errors.New("Invalid image name")
 	}
 	payload.Image = image
 
@@ -40,11 +40,11 @@ func (payload *endpointJobFromFilePayload) Validate(r *http.Request) error {
 
 func (payload *endpointJobFromFileContentPayload) Validate(r *http.Request) error {
 	if govalidator.IsNull(payload.FileContent) {
-		return portainer.Error("Invalid script file content")
+		return errors.New("Invalid script file content")
 	}
 
 	if govalidator.IsNull(payload.Image) {
-		return portainer.Error("Invalid image name")
+		return errors.New("Invalid image name")
 	}
 
 	return nil

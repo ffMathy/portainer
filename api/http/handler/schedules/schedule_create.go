@@ -70,7 +70,7 @@ func (payload *scheduleCreateFromFilePayload) Validate(r *http.Request) error {
 
 	file, _, err := request.RetrieveMultiPartFormFile(r, "file")
 	if err != nil {
-		return portainer.Error("Invalid script file. Ensure that the file is uploaded correctly")
+		return errors.New("Invalid script file. Ensure that the file is uploaded correctly")
 	}
 	payload.File = file
 
@@ -85,7 +85,7 @@ func (payload *scheduleCreateFromFilePayload) Validate(r *http.Request) error {
 
 func (payload *scheduleCreateFromFileContentPayload) Validate(r *http.Request) error {
 	if govalidator.IsNull(payload.Name) {
-		return portainer.Error("Invalid schedule name")
+		return errors.New("Invalid schedule name")
 	}
 
 	if !govalidator.Matches(payload.Name, `^[a-zA-Z0-9][a-zA-Z0-9_.-]+$`) {
@@ -93,23 +93,23 @@ func (payload *scheduleCreateFromFileContentPayload) Validate(r *http.Request) e
 	}
 
 	if govalidator.IsNull(payload.Image) {
-		return portainer.Error("Invalid schedule image")
+		return errors.New("Invalid schedule image")
 	}
 
 	if govalidator.IsNull(payload.CronExpression) {
-		return portainer.Error("Invalid cron expression")
+		return errors.New("Invalid cron expression")
 	}
 
 	if payload.Endpoints == nil || len(payload.Endpoints) == 0 {
-		return portainer.Error("Invalid endpoints payload")
+		return errors.New("Invalid endpoints payload")
 	}
 
 	if govalidator.IsNull(payload.FileContent) {
-		return portainer.Error("Invalid script file content")
+		return errors.New("Invalid script file content")
 	}
 
 	if payload.RetryCount != 0 && payload.RetryInterval == 0 {
-		return portainer.Error("RetryInterval must be set")
+		return errors.New("RetryInterval must be set")
 	}
 
 	return nil

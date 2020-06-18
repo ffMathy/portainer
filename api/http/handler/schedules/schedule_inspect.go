@@ -1,14 +1,13 @@
 package schedules
 
 import (
-	"github.com/portainer/portainer/api/bolt/errors"
 	"net/http"
-
-	"github.com/portainer/libhttp/response"
-	"github.com/portainer/portainer/api"
 
 	httperror "github.com/portainer/libhttp/error"
 	"github.com/portainer/libhttp/request"
+	"github.com/portainer/libhttp/response"
+	"github.com/portainer/portainer/api"
+	"github.com/portainer/portainer/api/bolt/errors"
 )
 
 func (handler *Handler) scheduleInspect(w http.ResponseWriter, r *http.Request) *httperror.HandlerError {
